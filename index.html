@@ -10,7 +10,7 @@
   h2 { font-size: 1.2em; margin-top: 2em; color: #1A1A2E; }
   .lang-toggle { text-align: right; margin-bottom: 16px; }
   .lang-toggle a { color: #1A1A2E; text-decoration: underline; cursor: pointer; }
-  .section-zh { display: none; }
+  .section-zh, .section-en { display: none; }
   ul { padding-left: 1.5em; }
   li { margin-bottom: 0.5em; }
   .updated { color: #888; font-size: 0.9em; }
@@ -103,17 +103,17 @@
 </div>
 
 <script>
-function toggleLang() {
-  var zh = document.getElementById('zh');
-  var en = document.getElementById('en');
-  if (zh.style.display === 'none') {
-    zh.style.display = 'block';
-    en.style.display = 'none';
-  } else {
-    zh.style.display = 'none';
-    en.style.display = 'block';
-  }
+function showLang(lang) {
+  document.getElementById('zh').style.display = lang === 'zh' ? 'block' : 'none';
+  document.getElementById('en').style.display = lang === 'en' ? 'block' : 'none';
 }
+function toggleLang() {
+  var isZh = document.getElementById('zh').style.display !== 'none';
+  showLang(isZh ? 'en' : 'zh');
+}
+// Default: English, unless ?lang=zh
+var lang = new URLSearchParams(window.location.search).get('lang');
+showLang(lang === 'zh' ? 'zh' : 'en');
 </script>
 </body>
 </html>
